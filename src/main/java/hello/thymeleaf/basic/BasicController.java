@@ -96,11 +96,11 @@ public class BasicController {
 
     @GetMapping("/each")
     public String each(Model model) {
-        addUser(model);
+        addUsers(model);
         return "basic/each";
     }
 
-    private void addUser(Model model) {
+    private void addUsers(Model model) {
         List<User> list = new ArrayList<>();
         list.add(new User("userA", 10));
         list.add(new User("userB", 20));
@@ -108,6 +108,12 @@ public class BasicController {
 
         model.addAttribute("users", list);
 
+    }
+
+    @GetMapping("/condition")
+    public String condition(Model model) {
+        addUsers(model);
+        return "basic/condition";
     }
 
     @Data
