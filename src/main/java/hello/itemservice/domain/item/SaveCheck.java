@@ -1,4 +1,4 @@
 package hello.itemservice.domain.item;
 
-public interface SaveCheck {
+public interface SaveCheck { //저장용 groups 생성
 }
