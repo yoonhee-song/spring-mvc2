@@ -36,13 +36,13 @@ public class ValidationItemControllerV1 {
         return "validation/v1/item";
     }
 
-    @GetMapping("/add")
+    @GetMapping("/add") //조회하는 부분
     public String addForm(Model model) {
         model.addAttribute("item", new Item());
         return "validation/v1/addForm";
     }
 
-    @PostMapping("/add")
+    @PostMapping("/add") //값이 직접 오가는 부분
     public String addItem(@ModelAttribute Item item, RedirectAttributes redirectAttributes, Model model) {
 
         //검증 오류 결과를 보관
