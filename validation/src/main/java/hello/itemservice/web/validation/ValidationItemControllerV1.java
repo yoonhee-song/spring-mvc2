@@ -36,13 +36,13 @@ public class ValidationItemControllerV1 {
         return "validation/v1/item";
     }
 
-    @GetMapping("/add")
+    @GetMapping("/add") //폼 보여주는 곳
     public String addForm(Model model) {
         model.addAttribute("item", new Item());
         return "validation/v1/addForm";
     }
 
-    @PostMapping("/add")
+    @PostMapping("/add") //실제로 폼 저장하는 부분 -> 아이템에 관한 정보가 실제로 오는 곳
     public String addItem(@ModelAttribute Item item, RedirectAttributes redirectAttributes) {
 
         //검증 오류 결과를 보관
