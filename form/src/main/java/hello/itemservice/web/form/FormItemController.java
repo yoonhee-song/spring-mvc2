@@ -26,7 +26,7 @@ public class FormItemController {
 
     @ModelAttribute("regions")
     public Map<String, String> regions() {
-        Map<String, String> regions = new LinkedHashMap<>();
+        Map<String, String> regions = new LinkedHashMap<>(); //HashMap은 순서보장 X, 따라서 순서보장 된 LinkedHashMap 사용
         regions.put("INCHEON", "인천");
         regions.put("BUSAN", "부산");
         regions.put("JEJU", "제주");
@@ -96,4 +96,3 @@ public class FormItemController {
     }
 
 }
-
