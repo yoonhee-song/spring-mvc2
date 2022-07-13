@@ -19,6 +19,7 @@ public class MessageSourceTest {
 
     @Test
     void helloMessage() {
+        //locale 정보가 없으면 basename에서 설정한 기본 이름 메시지 파일 내용으로 출력
         String result = ms.getMessage("hello", null, null);
         assertThat(result).isEqualTo("안녕");
     }
@@ -44,7 +45,7 @@ public class MessageSourceTest {
     @Test
     void defaultLang() {
         assertThat(ms.getMessage("hello", null, null)).isEqualTo("안녕");
-        assertThat(ms.getMessage("hello", null, Locale.KOREA)).isEqualTo("안녕");
+        assertThat(ms.getMessage("hello", null, Locale.KOREA)).isEqualTo("하이");
     }
 
     @Test
