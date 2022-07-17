@@ -36,19 +36,19 @@ public class ValidationItemControllerV1 {
         return "validation/v1/item";
     }
 
-    @GetMapping("/add") //조회하는 부분
+    @GetMapping("/add")
     public String addForm(Model model) {
         model.addAttribute("item", new Item());
         return "validation/v1/addForm";
     }
 
-    @PostMapping("/add") //값이 직접 오가는 부분
+    @PostMapping("/add")
     public String addItem(@ModelAttribute Item item, RedirectAttributes redirectAttributes, Model model) {
 
         //검증 오류 결과를 보관
         Map<String, String> errors = new HashMap<>();
 
-        //검증 로직
+        //특정 필드 오류 검증 로직
         if (!StringUtils.hasText(item.getItemName())) {
             errors.put("itemName", "상품 이름은 필수입니다.");
         }
@@ -63,7 +63,7 @@ public class ValidationItemControllerV1 {
         if (item.getPrice() != null && item.getQuantity() != null) {
             int resultPrice = item.getPrice() * item.getQuantity();
             if (resultPrice < 10000) {
-                errors.put("globalError", "가격 * 수량의 합은 10,000원 이상이어야 합니다. 현재 값 = " + resultPrice);
+                errors.put("globalError", "가격 * 수량의 합은 10,000원 이상이어야 합니다. 현재 값 = " + resultPrice + "입니다.");
             }
         }
 

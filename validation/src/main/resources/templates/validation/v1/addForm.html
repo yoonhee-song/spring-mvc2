@@ -9,8 +9,8 @@
             max-width: 560px;
         }
         .field-error {
-            border-color: #dc3545;
-            color: #dc3545;
+            border-color: #4682b4;
+            color: #4682b4;
         }
     </style>
 </head>
@@ -24,6 +24,7 @@
 
     <form action="item.html" th:action th:object="${item}" method="post">
 
+        <!-- Safe Navigation Operator: ?.는 errors가 null일 때, NullPointerException이 아닌 null을 반환하는 문법 -->
         <div th:if="${errors?.containsKey('globalError')}">
             <p class="field-error" th:text="${errors['globalError']}">전체 오류 메시지</p>
         </div>
@@ -55,7 +56,6 @@
             <div class="field-error" th:if="${errors?.containsKey('quantity')}" th:text="${errors['quantity']}">
                 수량 오류
             </div>
-
         </div>
 
         <hr class="my-4">
@@ -71,9 +71,7 @@
                         type="button" th:text="#{button.cancel}">취소</button>
             </div>
         </div>
-
     </form>
-
 </div> <!-- /container -->
 </body>
 </html>
