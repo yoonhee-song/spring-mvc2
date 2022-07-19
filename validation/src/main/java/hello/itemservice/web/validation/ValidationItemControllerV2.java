@@ -51,10 +51,10 @@ public class ValidationItemControllerV2 {
         return "validation/v2/addForm";
     }
 
-//    @PostMapping("/add")
+    @PostMapping("/add") //순서중요!! BindingResult bindingResult 파라미터의 위치는 @ModelAttribute Item item 뒤에 와야 함 -> bindingResult는 Item 객체의 바인딩 결과를 담고있기 때문
     public String addItemV1(@ModelAttribute Item item, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
 
-        //검증 로직
+        //검증 로직 -> 필드 오류 (new FieldError())
         if (!StringUtils.hasText(item.getItemName())) {
             bindingResult.addError(new FieldError("item", "itemName", "상품 이름은 필수 입니다."));
         }
@@ -65,7 +65,7 @@ public class ValidationItemControllerV2 {
             bindingResult.addError(new FieldError("item", "quantity", "수량은 최대 9,999 까지 허용합니다."));
         }
 
-        //특정 필드가 아닌 복합 룰 검증
+        //특정 필드가 아닌 복합 룰 검증 -> 글로벌 오류 (new ObjectError())
         if (item.getPrice() != null && item.getQuantity() != null) {
             int resultPrice = item.getPrice() * item.getQuantity();
             if (resultPrice < 10000) {
@@ -75,6 +75,7 @@ public class ValidationItemControllerV2 {
 
         //검증에 실패하면 다시 입력 폼으로
         if (bindingResult.hasErrors()) {
+            //bindingResult는 자동으로 뷰에 같이 넘어가기 때문에 ModelAttribute에 담을 필요X
             log.info("errors={} ", bindingResult);
             return "validation/v2/addForm";
         }
@@ -211,7 +212,7 @@ public class ValidationItemControllerV2 {
         return "redirect:/validation/v2/items/{itemId}";
     }
 
-    @PostMapping("/add")
+//    @PostMapping("/add")
     public String addItemV6(@Validated @ModelAttribute Item item, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
 
         //검증에 실패하면 다시 입력 폼으로
