@@ -51,11 +51,12 @@ public class ValidationItemControllerV2 {
         return "validation/v2/addForm";
     }
 
-    @PostMapping("/add") //순서중요!! BindingResult bindingResult 파라미터의 위치는 @ModelAttribute Item item 뒤에 와야 함 -> bindingResult는 Item 객체의 바인딩 결과를 담고있기 때문
+//    @PostMapping("/add") //순서중요!! BindingResult bindingResult 파라미터의 위치는 @ModelAttribute Item item 뒤에 와야 함 -> bindingResult는 Item 객체의 바인딩 결과를 담고있기 때문
     public String addItemV1(@ModelAttribute Item item, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
 
         //검증 로직 -> 필드 오류 (new FieldError())
         if (!StringUtils.hasText(item.getItemName())) {
+            //BindingResult가 있으면 우선 controller 호출! 오류 페이지로 넘어가지 않음
             bindingResult.addError(new FieldError("item", "itemName", "상품 이름은 필수 입니다."));
         }
         if (item.getPrice() == null || item.getPrice() < 1000 || item.getPrice() > 1000000) {
@@ -87,7 +88,7 @@ public class ValidationItemControllerV2 {
         return "redirect:/validation/v2/items/{itemId}";
     }
 
-//    @PostMapping("/add")
+    @PostMapping("/add")
     public String addItemV2(@ModelAttribute Item item, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
 
         //검증 로직
