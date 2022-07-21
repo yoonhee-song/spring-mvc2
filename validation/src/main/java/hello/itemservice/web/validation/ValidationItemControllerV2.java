@@ -88,11 +88,11 @@ public class ValidationItemControllerV2 {
         return "redirect:/validation/v2/items/{itemId}";
     }
 
-    @PostMapping("/add")
+    @PostMapping("/add") //오류 발생시 사용자 입력 값 유지
     public String addItemV2(@ModelAttribute Item item, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
 
         //검증 로직
-        if (!StringUtils.hasText(item.getItemName())) {
+        if (!StringUtils.hasText(item.getItemName())) { //bindingFailure -> 타입 오류같은 바인딩이 실패했는지 여부를 적어주는 곳 (여기서는 실패가 아니니까 false를 사용)
             bindingResult.addError(new FieldError("item", "itemName", item.getItemName(), false, null, null, "상품 이름은 필수 입니다."));
         }
         if (item.getPrice() == null || item.getPrice() < 1000 || item.getPrice() > 1000000) {
