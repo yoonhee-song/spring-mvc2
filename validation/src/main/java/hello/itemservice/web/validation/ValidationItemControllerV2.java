@@ -123,12 +123,13 @@ public class ValidationItemControllerV2 {
         return "redirect:/validation/v2/items/{itemId}";
     }
 
-    @PostMapping("/add")
+//    @PostMapping("/add")
     public String addItemV3(@ModelAttribute Item item, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
 
         //검증 로직
         if (!StringUtils.hasText(item.getItemName())) {
             //메시지가 없을 때 다음 메시지를 사용할 수 있도록 배열의 형태로 넘기는 것이다.
+//            bindingResult.addError(new FieldError(bindingResult.getObjectName(), "itemName", item.getItemName(), false, new String[]{"required.item.itemName", "required.default"}, null, null));
             bindingResult.addError(new FieldError("item", "itemName", item.getItemName(), false, new String[]{"required.item.itemName", "required.default"}, null, null));
         }
         if (item.getPrice() == null || item.getPrice() < 1000 || item.getPrice() > 1000000) {
@@ -159,12 +160,13 @@ public class ValidationItemControllerV2 {
         return "redirect:/validation/v2/items/{itemId}";
     }
 
-//    @PostMapping("/add")
+    @PostMapping("/add")
     public String addItemV4(@ModelAttribute Item item, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
 
         log.info("objectName={}", bindingResult.getObjectName());
         log.info("target={}", bindingResult.getTarget());
 
+        //errorCode -> 이 오류 코드는 메시지에 등록된 코드가 아님. messageResolver를 위한 오류 코드!
         if (!StringUtils.hasText(item.getItemName())) {
             bindingResult.rejectValue("itemName", "required");
         }
