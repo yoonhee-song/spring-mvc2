@@ -29,6 +29,7 @@ public class ValidationItemControllerV2 {
 
     @InitBinder
     public void init(WebDataBinder dataBinder) {
+        //검증기 추가 --> controller가 호출될 때마다 새로만들어지기 때문에 항상 검증기를 넣어놓을 수 있음 (ex:addItemV6)
         dataBinder.addValidators(itemValidator);
     }
 
@@ -161,7 +162,7 @@ public class ValidationItemControllerV2 {
         return "redirect:/validation/v2/items/{itemId}";
     }
 
-    @PostMapping("/add")
+//    @PostMapping("/add")
     public String addItemV4(@ModelAttribute Item item, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
 
         log.info("objectName={}", bindingResult.getObjectName());
@@ -219,7 +220,7 @@ public class ValidationItemControllerV2 {
         return "redirect:/validation/v2/items/{itemId}";
     }
 
-//    @PostMapping("/add")
+    @PostMapping("/add")
     public String addItemV6(@Validated @ModelAttribute Item item, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
 
         //검증에 실패하면 다시 입력 폼으로
@@ -249,4 +250,3 @@ public class ValidationItemControllerV2 {
     }
 
 }
-

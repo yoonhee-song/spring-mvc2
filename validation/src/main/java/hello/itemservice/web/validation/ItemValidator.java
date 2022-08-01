@@ -11,6 +11,8 @@ public class ItemValidator implements Validator {
 
     @Override
     public boolean supports(Class<?> clazz) {
+        //item == clazz
+        //item == subItem: 자식클래스까지 커버해줌
         return Item.class.isAssignableFrom(clazz);
     }
 
