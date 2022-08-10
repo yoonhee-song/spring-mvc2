@@ -45,7 +45,7 @@ public class ValidationItemControllerV4 {
         return "validation/v4/addForm";
     }
 
-    @PostMapping("/add")
+    @PostMapping("/add") //@ModelAttribute("item")에 item 이름 넣어준 부분 주의 -> 넣지 않으면 ItemSaveForm의 경우 규칙에 의해 itemSaveForm 이라는 이름으로 MVC Model에 담기기 때문
     public String addItem(@Validated @ModelAttribute("item") ItemSaveForm form, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 
         //특정 필드가 아닌 복합 룰 검증
@@ -105,6 +105,4 @@ public class ValidationItemControllerV4 {
         itemRepository.update(itemId, itemParam);
         return "redirect:/validation/v4/items/{itemId}";
     }
-
 }
-
