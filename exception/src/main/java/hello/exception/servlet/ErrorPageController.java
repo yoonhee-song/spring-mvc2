@@ -18,18 +18,21 @@ public class ErrorPageController {
     public static final String ERROR_REQUEST_URI = "javax.servlet.error.request_uri";
     public static final String ERROR_SERVLET_NAME = "javax.servlet.error.servlet_name";
     public static final String ERROR_STATUS_CODE = "javax.servlet.error.status_code";
+
     @RequestMapping("/error-page/404")
     public String errorPage404(HttpServletRequest request, HttpServletResponse response) {
         log.info("errorPage 404");
         printErrorInfo(request);
         return "error-page/404";
     }
+
     @RequestMapping("/error-page/500")
     public String errorPage500(HttpServletRequest request, HttpServletResponse response) {
         log.info("errorPage 500");
         printErrorInfo(request);
         return "error-page/500";
     }
+
     private void printErrorInfo(HttpServletRequest request) {
         log.info("ERROR_EXCEPTION: ex=", request.getAttribute(ERROR_EXCEPTION));
         log.info("ERROR_EXCEPTION_TYPE: {}", request.getAttribute(ERROR_EXCEPTION_TYPE));
